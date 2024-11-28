@@ -3,11 +3,11 @@ return {
   cmd = "FzfLua",
   dependencies = { "nvim-tree/nvim-web-devicons" },
   keys = {
-    { "<leader> ", "<Cmd>FzfLua files<CR>",                    desc = "FzfLua files" },
+    { "<leader><space>", "<Cmd>FzfLua files<CR>",                    desc = "FzfLua files" },
     {
       "<leader>fF",
       function()
-        local git_root = require('seba.util').get_git_root()
+        local git_root = require('isak.util').get_git_root()
         require('fzf-lua').files({ cwd = git_root })
       end,
       desc = "FzfLua files (git root)"

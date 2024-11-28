@@ -17,11 +17,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Setting options ]]
-require('seba.config.options')
-require('seba.config.keymaps')
-require('seba.config.autocmds')
+require('isak.config.options')
+require('isak.config.keymaps')
+require('isak.config.autocmds')
 
-require('lazy').setup({ import = "seba.plugins" },
+require('lazy').setup({ import = "isak.plugins" },
   {
     install = {
       colorscheme = { "catppuccin" },

@@ -10,16 +10,16 @@ return
       local lspconfig = require('lspconfig')
 
       -- Get keybinds for LSP
-      local lsp_settings = require('seba.lsp.attach')
+      local lsp_settings = require('isak.lsp.attach')
 
       lspconfig.clangd.setup({
         capabilities = lsp_settings.capabilities,
         on_attach = lsp_settings.on_attach,
         cmd = {
-          "clangd"
-          -- "--background-index",
-          -- "--header-insertion=never",
-          -- "--header-insertion-decorators=false"
+          "clangd",
+          "--background-index",
+          "--header-insertion=never",
+          "--header-insertion-decorators=false"
         }
       })
 
@@ -62,7 +62,7 @@ return
 
 
       -- Diagnostics icons
-      for name, icon in pairs(require("seba.util.icons").diagnostics) do
+      for name, icon in pairs(require("isak.util.icons").diagnostics) do
         name = "DiagnosticSign" .. name
         vim.fn.sign_define(name, { text = icon, texthl = name, numhl = "" })
       end
@@ -153,9 +153,9 @@ return
       vim.g.rustaceanvim = {
         server = {
           on_attach = function(client, bufnr)
-            require('seba.lsp.attach').on_attach(client, bufnr)
+            require('isak.lsp.attach').on_attach(client, bufnr)
           end,
-          capabilities = require('seba.lsp.attach').capabilities,
+          capabilities = require('isak.lsp.attach').capabilities,
         },
       }
     end,

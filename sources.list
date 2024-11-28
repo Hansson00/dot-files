@@ -1,0 +1,10 @@
+#deb cdrom:[Debian GNU/Linux testing _Trixie_ - Official Snapshot amd64 NETINST with firmware 20241007-09:01]/ trixie contrib main non-free-firmware
+
+deb http://deb.debian.org/debian/ sid main
+deb-src http://deb.debian.org/debian/ sid main
+
+# This system was installed using small removable media
+# (e.g. netinst, live or single CD). The matching "deb cdrom"
+# entries were disabled at the end of the installation process.
+# For information about how to configure apt package sources,
+# see the sources.list(5) manual.

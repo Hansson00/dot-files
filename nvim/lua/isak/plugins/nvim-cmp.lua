@@ -64,7 +64,7 @@ return
               item.abbr = label .. padding
             end
 
-            local icons = require("seba.util.icons").kinds
+            local icons = require("isak.util.icons").kinds
             if icons[item.kind] then
               item.kind = icons[item.kind] .. item.kind
             end

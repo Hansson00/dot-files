@@ -35,7 +35,7 @@ return {
     })
 
     vim.api.nvim_create_user_command("FormatToggle", function()
-      local util = require("seba.util")
+      local util = require("isak.util")
       vim.g.disable_autoformat = not vim.g.disable_autoformat
       if vim.g.disable_autoformat then
         util.notify("Autoformat disabled", "warn", "conform.nvim")

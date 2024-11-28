@@ -100,7 +100,7 @@ return {
       { "<leader>E", function()
         local mf = require('mini.files')
         if not mf.close() then
-          local git_root = require('seba.util').get_git_root()
+          local git_root = require('isak.util').get_git_root()
           mf.open(git_root, false)
         end
       end, "MiniFiles open" },

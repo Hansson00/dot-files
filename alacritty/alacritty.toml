@@ -1,0 +1,15 @@
+#import = ["~/.config/alacritty/alabaster.toml"]
+
+[window]
+decorations = "none"
+
+[window.padding]
+x = 7
+y = 0
+
+[font]
+size = 8.0
+
+[font.normal]
+family = "NotoMono"
+

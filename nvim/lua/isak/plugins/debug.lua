@@ -39,7 +39,7 @@ return {
   },
   config = function()
     local dap = require 'dap'
-    local launch_path = require('seba.util').get_git_root() .. '/.vscode/launch.json'
+    local launch_path = require('isak.util').get_git_root() .. '/.vscode/launch.json'
 
     -- Keymaps
     vim.keymap.set('n', '<leader>di', dap.step_into, { desc = 'Debug: Step Into' })
@@ -56,7 +56,7 @@ return {
     end, { desc = 'Debug: Set Breakpoint' })
     vim.keymap.set('n', '<leader>dv', function()
       require('dap.ext.vscode').load_launchjs(launch_path, { cppdbg = { 'cc', 'cpp' } })
-      require('seba.util').notify("Loaded launch.json", "info", "DAP")
+      require('isak.util').notify("Loaded launch.json", "info", "DAP")
     end, { desc = 'Debug: Load launch.json' })
 
     dap.adapters.cppdbg = {
@@ -102,7 +102,7 @@ return {
     -- Visual
     vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
 
-    local icons = require("seba.util.icons")
+    local icons = require("isak.util.icons")
     for name, sign in pairs(icons.dap) do
       sign = type(sign) == "table" and sign or { sign }
       vim.fn.sign_define(

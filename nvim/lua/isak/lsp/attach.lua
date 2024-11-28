@@ -17,14 +17,14 @@ local function lsp_keymaps(bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>cr', vim.lsp.buf.rename, 'Code Rename')
+  nmap('<leader>rn', vim.lsp.buf.rename, 'Rename')
   nmap('<leader>ca', vim.lsp.buf.code_action, 'Code action')
 
   nmap('gd', "<cmd>FzfLua lsp_definitions<cr>", '[G]oto [D]efinition')
   nmap('gD', "<cmd>FzfLua lsp_document_symbols<cr>", '[G]oto [D]efinition')
   nmap('gr', "<cmd>FzfLua lsp_references<cr>", '[G]oto [R]eferences')
   nmap('gI', "<cmd>FzfLua lsp_implementations<cr>", '[G]oto [I]mplementation')
-  nmap('gD', vim.lsp.buf.type_definition, 'Type [D]efinition')
+  nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap("<leader>cd", "<cmd>lua vim.diagnostic.open_float()<CR>", 'diagnostic open float')
   nmap("<leader>Q", "<cmd>lua vim.diagnostic.setloclist()<CR>", 'Diagnostics quick-fix')
   nmap('<leader>ds', "<cmd>FzfLua lsp_document_symbols<cr>", '[D]ocument [S]ymbols')
