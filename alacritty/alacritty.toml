@@ -8,7 +8,7 @@ x = 7
 y = 0
 
 [font]
-size = 8.0
+size = 12.0
 
 [font.normal]
 family = "NotoMono"
