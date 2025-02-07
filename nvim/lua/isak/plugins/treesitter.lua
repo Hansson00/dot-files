@@ -17,6 +17,7 @@ return {
         'markdown_inline',
         'xml',
         'rust',
+        'zig'
       },
       highlight = { enable = true },
       indent = { enable = true },

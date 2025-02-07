@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 ZSH_THEME="nicoulaj"
 
@@ -14,11 +14,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-####################
-# Venvs
-####################
-alias piovenv='source ~/.config/venv/platformio/bin/activate'
-alias cppgenvenv='source ~/.config/venv/cpp-generator/bin/activate'
 
 ####################
 # FZF Config
@@ -59,11 +54,72 @@ _fzf_comprun() {
 ####################
 # My config
 ####################
+export LANG=en_US.UTF-8
 
+####################
+# Alacritty & TMUX
+####################
 alias dark_mode='python3 ~/.scripts/toggle_bright.py ~/.config/alacritty/alacritty.toml'
+alias st='~/.local/tmux-addons/tmux-session-handler/session-handler.sh'
+alias clangConf='vim ~/.config/clangd/config.yaml'
 
-alias vim="nvim"
+####################
+# Venvs
+####################
+alias piovenv='source ~/.config/venv/platformio/bin/activate'
+alias cppgenvenv='source ~/.config/venv/cpp-generator/bin/activate'
+alias fikavenv='source ~/.config/venv/fika/bin/activate'
+
+####################
+# Platformio
+####################
+alias compile='piovenv; platformio run --environment test_linux; deactivate'
+alias run='./.pio/test_linux/program'
+alias compileGcov='platformio run --environment gcov'
+alias runGcov='./.pio/gcov/program'
+
+####################
+# Node-firmware
+####################
+alias ftest='nf; find . -type f -name "*.ini" | sed '\''s/\/test\/bin\/platformio.ini//'\'' | fzf | read dir; cd "$dir/test/bin"; pwd'
+alias nf='cd ~/Documents/cfs/node-firmware'
 alias cdb='piovenv;platformio run --target compiledb --environment compdb --project-dir $(git rev-parse --show-toplevel); deactivate'
+alias flash='nf; ls $(git rev-parse --show-toplevel)/src/nodes | fzf | read node; build $node; node-patcher $node .pio/build/$node/firmware.hex; cd -'
+
+####################
+# CAN
+####################
+alias canSetup='sudo ip link set can0 type can bitrate 1000000'
+alias canUp='sudo ip link set up can0'
+alias cfs='cd ~/Documents/cfs/; cd $(find . -maxdepth 1 | fzf);pwd'
+
+####################
+# GIT
+####################
+alias gModU='git submodule update --init --recursive'
+alias gAmend='git commit --amend --all'
+alias restore='git status -s | fzf | awk '\''{print $2}'\'' | xargs git restore'
+alias diff='git status -s | fzf | awk '\''{print $2}'\'' | xargs git diff'
+alias delBranch='git branch -D $(git branch -a | grep -v remote | fzf)'
+alias checkout='git checkout $(git branch -a | grep -v remote | grep -v \* | fzf)'
+alias gRoot='cd $(git rev-parse --show-toplevel)'
+alias fgit='find ~/Documents -name .git | fzf | read dir; cd $dir/../'
+
+####################
+# IMGUI CLIENT
+####################
+alias srcImgui='source ~/Documents/cfs/cfs-imgui-client/source.sh'
+
+####################
+# OTHER
+####################
+alias grip='/home/isak/.local/bin/grip -b'
+alias vim="nvim"
+alias boards='firefox https://gitlab.com/groups/chalmersfs/software/embedded/-/boards'
+alias windows_update='sudo apt update; sudo apt upgrade -y; sudo apt autoremove -y'
+
+alias fa=' alias | fzf | awk -F= "{print \$1}" | xargs -I{} zsh -ic "{}"'
+
 
 function build() {
 piovenv
@@ -97,11 +153,10 @@ function buildAll() {
 	build steering_wheel
 }
 
-alias compile='piovenv; platformio run --environment test_linux; deactivate'
-alias run='./.pio/test_linux/program'
+export PATH="/home/isak/Documents/cfs/node-patcher/bin:$PATH"
+export PATH="/home/isak/.local/zig/zig-linux-x86_64-0.14.0-dev.2851+b074fb7dd/:$PATH"
+export PATH="/home/isak/.local/zls/zig-out/bin/:$PATH"
 
-alias compileGcov='platformio run --environment gcov'
-alias runGcov='./.pio/gcov/program'
 
 function cov() {
   rm -rf *.html *.css
@@ -118,31 +173,26 @@ function cNr() {
 	./.pio/test_linux/program
 }
 
-# alias canCartSetup='bash find_tty.sh CANable | sudo slcand -o -s8 -t hw -S 3000000 '
-# alias canCartUp='sudo ip link set up slcan0'
-
-alias canSetup='sudo ip link set can0 type can bitrate 1000000'
-alias canUp='sudo ip link set up can0'
-
-alias nf='cd ~/Documents/cfs/node-firmware'
-alias cfs='cd ~/Documents/cfs/; cd $(find . -maxdepth 1 | fzf);pwd'
-alias connectToSchool='~/Downloads/distans-cdal.sh ssvncviewer 1600x1000'
-alias st='~/.local/tmux-addons/tmux-session-handler/session-handler.sh'
-
-alias gModU='git submodule update --init --recursive'
-alias gAmend='git commit --amend --all'
-alias grip='/home/isak/.local/bin/grip -b'
-alias restore='git status -s | fzf | awk '\''{print $2}'\'' | xargs git restore'
-alias diff='git status -s | fzf | awk '\''{print $2}'\'' | xargs git diff'
-alias ftest='nf; find . -type f -name "*.ini" | sed '\''s/\/test\/bin\/platformio.ini//'\'' | fzf | read dir; cd "$dir/test/bin"'
-alias clangConf='vim ~/.config/clangd/config.yaml'
-
-export PATH="/home/isak/Documents/cfs/node-patcher/bin:$PATH"
-
-alias delBranch='git branch -D $(git branch -a | grep -v remote | fzf)'
-alias checkout='git checkout $(git branch -a | grep -v remote | grep -v \* | fzf)'
-alias flash='nf; ls $(git rev-parse --show-toplevel)/src/nodes | fzf | read node; build $node; node-patcher $node .pio/build/$node/firmware.hex; cd -'
-alias fgit='find ~/Documents -name .git | fzf | read dir; cd $dir../'
-alias src='source ~/Documents/cfs/cfs-imgui-client/source.sh'
-alias gRoot='cd $(git rev-parse --show-toplevel)'
-alias boards='firefox https://gitlab.com/groups/chalmersfs/software/embedded/-/boards'
+# function runWindows(){
+# qemu-system-x86_64 \
+# -display gtk,window-close=off \
+# -machine type=q35,accel=kvm \
+# -enable-kvm \
+# -cpu Skylake-Client-v4,hv_relaxed,hv_vpindex,hv_time,hv_vapic,hv_runtime,hv_synic,hv_stimer,hv_tlbflush,hv_ipi,hv_frequencies \
+# -smp 4 \
+# -m 4096 -mem-prealloc \
+# -vga virtio \
+# -device ich9-intel-hda \
+# -device hda-duplex,audiodev=hda \
+# -audiodev pa,id=hda,server=unix:/run/user/1000/pulse/native,out.frequency=44100 \
+# -device qemu-xhci,id=xhci \
+# -device usb-tablet,bus=xhci.0 \
+# -chardev socket,path=/tmp/qga.sock,server=on,wait=off,id=qga0 \
+# -device virtio-serial \
+# -device virtserialport,chardev=qga0,name=org.qemu.guest_agent.0 \
+# -object rng-random,id=rng0,filename=/dev/urandom \
+# -device virtio-rng-pci,max-bytes=1024,period=1000 \
+# -drive format=raw,file=windows.img \
+# -drive file=Win10_22H2_English_x64v1.iso,media=cdrom \
+# -boot menu=on
+# }

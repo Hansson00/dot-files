@@ -1,9 +1,9 @@
 #!/bin/bash
 
 BASE_DIR="$HOME/Documents/"
-GIT_REPOS=$(fdfind --hidden --type d ".git" "$BASE_DIR" --exec dirname {} | sort -u)
+GIT_REPOS=$(fdfind --hidden --type d ".git" "$BASE_DIR" --exec dirname {} | grep -Ev "imgui-client/" | grep -Ev "lib"| sort -u)
 
-OPTIONS=$(echo -e "$HOME\n$HOME/.local/programs/SavvyCAN/\n$HOME/Documents/school/\n$GIT_REPOS")
+OPTIONS=$(echo -e "$HOME\n$HOME/.local/programs/SavvyCAN/\n$HOME/Documents/school/\n$GIT_REPOS\n$HOME/Documents/MasterThesis/\n$HOME/.config/hypr/")
 
 REPO=$(echo "$OPTIONS" | fzf --prompt="Select a directory: ") 
 

@@ -34,11 +34,15 @@ return
         }
       })
 
-      lspconfig.bashls.setup({
+      -- Zig
+      lspconfig.zls.setup({
         capabilities = lsp_settings.capabilities,
         on_attach = lsp_settings.on_attach,
+        cmd = { "zls" },
+        filetypes = { "zig", "zir" },
+        root_dir = lspconfig.util.root_pattern("zls.json", "build.zig", ".git"),
+        single_file_support = true,
       })
-
 
       lspconfig.basedpyright.setup({
         settings = {
@@ -69,6 +73,7 @@ return
     end
   },
 
+
   {
     'williamboman/mason.nvim',
     cmd = "Mason",
@@ -79,12 +84,12 @@ return
         require("mason-lspconfig").setup {
           ensure_installed = {
             "lua_ls",
-            "bashls",
             "basedpyright",
           } }
       end
     },
   },
+
 
   {
     "folke/lazydev.nvim",
@@ -142,22 +147,6 @@ return
           end
         end,
       })
-    end,
-  },
-
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^3", -- Recommended
-    ft = { "rust" },
-    init = function()
-      vim.g.rustaceanvim = {
-        server = {
-          on_attach = function(client, bufnr)
-            require('isak.lsp.attach').on_attach(client, bufnr)
-          end,
-          capabilities = require('isak.lsp.attach').capabilities,
-        },
-      }
     end,
   },
 }
