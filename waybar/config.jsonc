@@ -1,119 +1,109 @@
 {
 	"layer": "top",
-	"modules-left": ["custom/launcher","cpu","memory","disk", "battery", "custom/music"],
-  "modules-center": [ "hyprland/workspaces"],
-	"modules-right": ["custom/updates","custom/wallpaper","backlight","pulseaudio","clock", "network", "power-profiles-daemon","custom/power"],
+	// Using margin-bottom with a negative value in order to reduce the space between Hyprland window and waybar
+	"margin-bottom": -4,
+	"margin-top": 2,
+	"modules-left": ["custom/launcher", "cpu", "custom/thermals", "memory", "network", "tray"],
+	"modules-center": ["hyprland/workspaces"],
+	"modules-right": ["pulseaudio", "clock", "group/group-power"],
 	
 	"pulseaudio": {
 		"tooltip": false,
-		"scroll-step": 1,
+		"scroll-step": 5,
 		"format": "{icon} {volume}%",
-		"format-muted": "  {volume}%",
+		"format-muted": "{icon} {volume}%",
 		"on-click":"pavucontrol",
 		"format-icons": {
-			"default": [" ", " ", " "]
-		}
+			"default": ["", "", ""]
+		},
+    "ignored-sinks": ["Easy Effects Sink"]
 	},
-
-"hyprland/workspaces": {
-        "format": "{icon}",
-        "tooltip": false,
-        "format-icons": {
-            "1": "",
-            "2": "",
-            "3": "",
-            "4": "",
-            "5": "",
-            "urgent": "",
-            "active": "",
-            "default": ""
-    },
-    "tray": {
-    "icon-size": 25,
-    "spacing": 10
-}
-},
+  // "jack": {
+  //   "format": "DSP {}%",
+  //   "format-xrun": "{xruns} xruns",
+  //   "format-disconnected": "DSP off",
+  //   "realtime": true
+  // },
 	"network": {
-		"tooltip": false,
-		"format-wifi": "   {essid} {ipaddr}",
-    "format-disconnected": "󱚼 ",
-    "on-click": "nm-connection-editor"
+		// "interface": "wlp2*", // (Optional) To force the use of this interface
+		"format-wifi": "",
+		"format-ethernet": "",
+		"tooltip-format": "{essid} ({signalStrength}%)",
+		"format-linked": "{ifname} (No IP) ",
+		"format-disconnected": "⚠",
+		"format-alt": "{ifname}: {ipaddr}/{cidr}"
 	},
-	"backlight": {
-		"tooltip": false,
-		"format": " {}%",
-		"interval":1,
-    "on-scroll-up": "brightnessctl s +1%",
-		"on-scroll-down": "brightnessctl s 1%-"
+	"tray":{
+		"icon-size":18,
+		"spacing": 10
 	},
-    "battery": {
-        "states": {
-            "good": 95,
-            "warning": 30,
-            "critical":5 
-        },
-        "format": "{icon}  {capacity}%",
-        "format-charging": " {capacity}%",
-        "format-plugged": " {capacity}%",
-        "format-alt": "{icon}  {time}",
-        "format-icons": ["", "", "", "", ""]
-    },
     "clock": {
         "timezone": "Europe/Stockholm",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "format": "{:%d/%m 󰸗 %H:%M}",
-        "on-click": "google-chrome https://calendar.google.com/calendar"
+        "on-click": "firefox https://calendar.google.com/calendar"
     },
     "cpu": {
         "interval": 15,
-        "format": "  {usage}%",
+        "format": " {}%",
+        "max-length": 10
+    },
+    "custom/thermals" : {
+        "interval": 10,
+        "exec": "$HOME/.config/waybar/thermals.sh",
+        "format": " {}",
+        "tooltip": false,
         "max-length": 10
     },
     "memory": {
         "interval": 30,
-        "format": "  {used:0.1f}GB {percentage}%",
-        "max-length": 20
-    },
-    "custom/music": {
-        "format": "  {}",
-        "escape": true,
-        "interval": 5,
-        "tooltip": false,
-        "exec-if": "pgrep spotify",
-        "exec": "playerctl metadata --format='{{ title }} - {{ artist }}'",
-        "on-click": "playerctl play-pause",
-        "max-length": 50
+        "format": " {}%",
+        "max-length": 10
     },
     "custom/launcher":{
-        "format": "",
-        "on-click": "rofi -show drun",
-        "on-click-right": "killall rofi"
+        "format": " ",
+        "on-click": "wofi -show drun",
+        "on-click-right": "killall wofi"
     },
-    "disk": {
-    	"interval": 30,
-    	"format": "   {specific_free:0.2f} GB",
-    	"unit": "GB"
+    "group/group-power": {
+        "drawer":{
+          "transition-left-to-right": false,
+          "orientation": "inherit"
+        },
+        "orientation": "horizontal",
+        "modules": [
+            "custom/power", // First element is the "group leader" and won't ever be hidden
+            "custom/quit",
+            "custom/sleep",
+            "custom/reboot"
+        ]
     },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip": false,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "",
-        "power-saver": ""
-      }
+    "custom/quit": {
+        "format": "󰗼",
+        "tooltip": false,
+        "on-click": "hyprctl dispatch exit"
+    },
+    "custom/sleep": {
+        "format": "󰒲",
+        "tooltip": false,
+        "on-click": "systemctl suspend"
+    },
+    "custom/reboot": {
+        "format": "󰜉",
+        "tooltip": false,
+        "on-click": "reboot"
     },
     "custom/power": {
-        "format" : "⏻ ",
+        "format": "",
         "tooltip": false,
-        "menu": "on-click",
-        "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-        "menu-actions": {
-        	"shutdown": "shutdown",
-        	"reboot": "reboot",
-        	"suspend": "systemctl suspend",
-			    "hibernate": "systemctl hibernate"
-		  }
-    }
+        "on-click": "shutdown now"
+    },
+
+    // The code following below is given in the great documentation for Waybar status bar under Useful Utilities in Hyprland wiki
+    "hyrpland/workspaces": {
+      "format": "{icon}",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "on-click": "activate"
+	}
 }

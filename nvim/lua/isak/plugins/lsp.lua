@@ -3,6 +3,7 @@ return
   {
     'neovim/nvim-lspconfig',
     event = { "BufReadPre", "BufNewFile" },
+
     dependencies = {
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
     },
@@ -44,25 +45,48 @@ return
         single_file_support = true,
       })
 
-      lspconfig.basedpyright.setup({
-        settings = {
-          basedpyright = {
-            -- Using Ruff's import organizer
-            disableOrganizeImports = true,
-            analysis = {
-              -- Ignore all files for analysis to exclusively use Ruff for linting
-              ignore = { '*' },
-            },
-          },
-        },
+
+      lspconfig.cmake.setup({
         capabilities = lsp_settings.capabilities,
-        on_attach = lsp_settings.on_attach
+        on_attach = lsp_settings.on_attach,
+        cmd = { "cmake-language-server" },
+        filetypes = { "cmake" },
+        root_dir = lspconfig.util.root_pattern(".git"),
+        single_file_support = true,
       })
 
-      lspconfig.ruff.setup({
-        capabilities = lsp_settings.capabilities,
-        on_attach = lsp_settings.on_attach
-      })
+      -- "languageserver": {
+      --   "cmake": {
+      --     "command": "cmake-language-server",
+      --     "filetypes": ["cmake"],
+      --     "rootPatterns": [
+      --       "build/"
+      --     ],
+      --     "initializationOptions": {
+      --       "buildDirectory": "build"
+      --     }
+      --   }
+      -- }
+
+      -- lspconfig.basedpyright.setup({
+      --   settings = {
+      --     basedpyright = {
+      --       -- Using Ruff's import organizer
+      --       disableOrganizeImports = true,
+      --       analysis = {
+      --         -- Ignore all files for analysis to exclusively use Ruff for linting
+      --         ignore = { '*' },
+      --       },
+      --     },
+      --   },
+      --   capabilities = lsp_settings.capabilities,
+      --   on_attach = lsp_settings.on_attach
+      -- })
+
+      -- lspconfig.ruff.setup({
+      --   capabilities = lsp_settings.capabilities,
+      --   on_attach = lsp_settings.on_attach
+      -- })
 
 
       -- Diagnostics icons
@@ -74,28 +98,28 @@ return
   },
 
 
-  {
-    'williamboman/mason.nvim',
-    cmd = "Mason",
-    dependencies = {
-      "williamboman/mason-lspconfig.nvim",
-      config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup {
-          ensure_installed = {
-            "lua_ls",
-            "basedpyright",
-          } }
-      end
-    },
-  },
+  -- {
+  --   'williamboman/mason.nvim',
+  --   cmd = "Mason",
+  --   dependencies = {
+  --     "williamboman/mason-lspconfig.nvim",
+  --     config = function()
+  --       require("mason").setup()
+  --       require("mason-lspconfig").setup {
+  --         ensure_installed = {
+  --           "lua_ls",
+  --           "basedpyright",
+  --         } }
+  --     end
+  --   },
+  -- },
+  --
 
-
-  {
-    "folke/lazydev.nvim",
-    ft = "lua", -- only load on lua files
-    opts = {},
-  },
+  -- {
+  --   "folke/lazydev.nvim",
+  --   ft = "lua", -- only load on lua files
+  --   opts = {},
+  -- },
 
   {
     "p00f/clangd_extensions.nvim",
@@ -149,4 +173,23 @@ return
       })
     end,
   },
+
+  vim.diagnostic.config({
+    virtual_text = {
+      prefix = "●", -- could also use ">>", "→", "⮞", etc.
+      spacing = 2,
+    },
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "",
+        [vim.diagnostic.severity.WARN]  = "",
+        [vim.diagnostic.severity.INFO]  = "",
+        [vim.diagnostic.severity.HINT]  = "",
+      }
+    },
+
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+  })
 }

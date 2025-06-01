@@ -1,138 +1,117 @@
 * {
 	border: none;
-	border-radius: 10;
-    font-family: "JetbrainsMono Nerd Font" ;
+	border-radius: 15px;
+	font-family: "NotoMonoNerdFont" ;
 	font-size: 15px;
-	min-height: 0px;
+	min-height: 5px;
 }
+
+
+@define-color main-color #1793d1;
+@define-color text-color #DCDCDC;
+@define-color bg #000000;
+
 
 window#waybar {
 	background: transparent;
 }
-#workspaces {
-    margin-top: 6px;
-    margin-left: 10px;
-    padding-right: 10px;
-    padding-left: 6px;
-    padding-right: 10px;
-    background: #000000; 
-    transition: 0.3s;
-    border-bottom: 2px;
-    border-style: solid;
-    border-color: #D70A53;
-}
-#workspaces button {
-    color: #D70A53;
-    transition: 0.3s;
-}
-#workspaces button:hover {
-    background: transparent;
-    color: transparent;
+
+window#waybar.hidden {
+	opacity: 0.2;
 }
 
 #window {
-	margin-top: 6px;
+	margin-top: 3px;
 	padding-left: 10px;
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-    color: transparent;
+  color: transparent;
 	background: transparent;
 }
 
-#tags {
-	margin-top: 6px;
-	margin-left: 12px;
-	font-size: 4px;
-	margin-bottom: 0px;
+#workspaces {
+	margin-top: 3px;
 	border-radius: 10px;
-	background: #161320;
+	background: @bg;
 	transition: none;
 }
 
-#tags button {
+#workspaces button {
 	transition: none;
-	color: #B5E8E0;
+	color: @text-color;
 	background: transparent;
-	font-size: 16px;
 	border-radius: 2px;
+  border-bottom: 3px solid transparent; /* Reserve space */
 }
 
-#tags button.occupied {
+#workspaces button.occupied {
 	transition: none;
-	color: #F28FAD;
+	color: @main-color;
 	background: transparent;
-	font-size: 4px;
 }
 
-#tags button.focused {
-	color: #ABE9B3;
-    border-top: 2px solid #ABE9B3;
-    border-bottom: 2px solid #ABE9B3;
+#workspaces button.active {
+  color: @text-color;
+  border-bottom-color: @main-color;
 }
 
-#tags button:hover {
+#workspaces button:hover {
 	transition: none;
 	box-shadow: inherit;
 	text-shadow: inherit;
-	color: #FAE3B0;
-    border-color: #E8A2AF;
-    color: #E8A2AF;
+	/* color: #FAE3B0; */
+	/* border-color: #E8A2AF; */
+	/* color: #E8A2AF; */
 }
 
-#tags button.focused:hover {
-    color: #E8A2AF;
+#workspaces button.active:hover {
+    /* color: #E8A2AF; */
 }
 
 #network {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
-	padding-right: 10px;
+	padding-right: 19px;
 	margin-bottom: 0px;
 	border-radius: 10px;
+  border-bottom: 2px;
+  border-style: solid;
 	transition: none;
-	color: #161320;
-	background: #bd93f9;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
 #pulseaudio {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 0px;
 	border-radius: 10px;
+  border-bottom: 2px;
+  border-style: solid;
 	transition: none;
-	color: #1A1826;
-	background: #FAE3B0;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
-#battery {
-	margin-top: 6px;
+#jack {
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 0px;
 	border-radius: 10px;
+  border-bottom: 2px;
+  border-style: solid;
 	transition: none;
-	color: #161320;
-	background: #B5E8E0;
-}
-
-#battery.charging, #battery.plugged {
-	color: #161320;
-    background-color: #B5E8E0;
-}
-
-#battery.critical:not(.charging) {
-    background-color: #B5E8E0;
-    color: #161320;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
 @keyframes blink {
@@ -142,55 +121,68 @@ window#waybar {
     }
 }
 
-#backlight {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F8BD96;
-}
 #clock {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 0px;
 	border-radius: 10px;
+  border-bottom: 2px;
+  border-style: solid;
 	transition: none;
-	color: #161320;
-	background: #ABE9B3;
-	/*background: #1A1826;*/
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
 #memory {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	margin-bottom: 0px;
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: #161320;
-	background: #DDB6F2;
+  border-bottom: 2px;
+  border-style: solid;
+	transition: none;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
+
 #cpu {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	margin-bottom: 0px;
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-	color: #161320;
-	background: #96CDFB;
+  border-bottom: 2px;
+  border-style: solid;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
+}
+
+#custom-thermals {
+	margin-top: 3px;
+	margin-left: 8px;
+	padding-left: 10px;
+	padding-right: 10px;
+  border-radius: 10px;
+  border-bottom: 2px;
+  border-style: solid;
+	transition: none;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
 #tray {
-	margin-top: 6px;
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
 	margin-bottom: 0px;
@@ -198,113 +190,89 @@ window#waybar {
 	border-radius: 10px;
 	transition: none;
 	color: #B5E8E0;
-	background: #161320;
+
+  border-bottom: 2px;
+  border-style: solid;
+  border-color: @main-color;
+  background: @bg;
 }
 
 #custom-launcher {
-	font-size: 24px;
-	margin-top: 6px;
+	/* font-size: 16px; */
+	margin-top: 3px;
 	margin-left: 8px;
 	padding-left: 10px;
-	padding-right: 13px;
-	transition: none;
-  color: #D70A53;
-  background: #000000;
+	padding-right: 5px;
   border-radius: 10px;
   border-bottom: 2px;
   border-style: solid;
-  border-color: #D70A53;
+	transition: none;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
-#power-profiles-daemon {
-	font-size: 16px;
-	margin-top: 6px;
+#custom-power {
+	/* font-size: 20px; */
+	margin-top: 3px;
 	margin-left: 8px;
-	padding-left: 12px;
+	margin-right: 8px;
+	padding-left: 10px;
+	padding-right: 15px;
+	margin-bottom: 0px;
+	border-radius: 10px;
+	transition: none;
+  border-bottom: 2px;
+  border-style: solid;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
+}
+
+#custom-quit {
+  /* font-size: 20px; */
+	margin-top: 3px;
+	margin-left: 8px;
+	padding-left: 11px;
 	padding-right: 14px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #161320;
-	background: #F28FAD;
-}
-
-#custom-music {
-	font-size: 20px;
-	margin-top: 6px;
-	margin-left: 8px;
-	margin-right: 4px;
-	padding-left: 9px;
-	padding-right: 11px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #1DB954;
-}
-
-
-#custom-power {
-	font-size: 20px;
-	margin-top: 6px;
-	margin-left: 8px;
-	margin-right: 8px;
-	padding-left: 9px;
-	padding-right: 2px;
-	border-radius: 10px;
-	transition: none;
-	color: #D70A53;
-	background: #000000;
-
   border-bottom: 2px;
   border-style: solid;
-  border-color: #D70A53;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
-#custom-wallpaper {
-	margin-top: 6px;
+#custom-sleep {
+	/* font-size: 20px; */
+	margin-top: 3px;
 	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 12px;
+	padding-right: 15px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #161320;
-	background: #C9CBFF;
+  border-bottom: 2px;
+  border-style: solid;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }
 
-#custom-updates {
-	margin-top: 6px;
+#custom-reboot {
+	/* font-size: 22px; */
+	margin-top: 3px;
 	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
+	padding-left: 12px;
+	padding-right: 12px;
 	margin-bottom: 0px;
 	border-radius: 10px;
 	transition: none;
-	color: #161320;
-	background: #E8A2AF;
-}
-
-#custom-media {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F2CDCD;
-}
-
-
-#disk {
-	margin-top: 6px;
-	margin-left: 8px;
-	padding-left: 10px;
-	padding-right: 10px;
-	margin-bottom: 0px;
-	border-radius: 10px;
-	transition: none;
-	color: #161320;
-	background: #F8BD96;
+  border-bottom: 2px;
+  border-style: solid;
+  color: @text-color;
+  border-color: @main-color;
+  background: @bg;
 }

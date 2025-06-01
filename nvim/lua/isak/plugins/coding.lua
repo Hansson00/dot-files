@@ -1,13 +1,14 @@
 return {
-  {
-    'jinh0/eyeliner.nvim',
-    keys = { "f", "F", "t", "T" },
-    opts = {
-      highlight_on_key = true,
-      dim = true
-    }
-  },
+  -- {
+  --   'jinh0/eyeliner.nvim',
+  --   keys = { "f", "F", "t", "T" },
+  --   opts = {
+  --     highlight_on_key = true,
+  --     dim = true
+  --   }
+  -- },
 
+  -- Add improved comment support
   {
     "folke/ts-comments.nvim",
     opts = {},
@@ -79,16 +80,5 @@ return {
         desc = "Quickfix List (Trouble)",
       },
     },
-  },
-
-  {
-    'Wansmer/treesj',
-    keys = { '<space>m' },
-    dependencies = { 'nvim-treesitter/nvim-treesitter' },
-    config = function()
-      local tj = require('treesj')
-      tj.setup({ use_default_keymaps = false })
-      vim.keymap.set('n', '<leader>m', tj.toggle)
-    end,
   },
 }

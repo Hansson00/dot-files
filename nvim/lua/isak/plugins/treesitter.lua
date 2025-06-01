@@ -17,7 +17,8 @@ return {
         'markdown_inline',
         'xml',
         'rust',
-        'zig'
+        'zig',
+        'cmake'
       },
       highlight = { enable = true },
       indent = { enable = true },

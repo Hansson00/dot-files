@@ -4,6 +4,7 @@
 
 ROOT=$(git rev-parse --show-toplevel)
 
+ln -sf $ROOT/.zshrc $HOME
 ln -sf $ROOT/.tmux.conf $HOME
 ln -sf $ROOT/alacritty $HOME/.config/
 ln -sf $ROOT/nvim $HOME/.config/nvim

@@ -1,0 +1,38 @@
+# CompileFlags:
+  # Add: [-std=c++14, -Wall, -Wextra, -Wconversion, -Werror, -Wunused-function, -Wpedantic, -Wdeprecated, -Wreorder, -Wsign-compare]
+
+Diagnostics:
+  ClangTidy:
+      Add: [
+        modernize-*,
+        performance-*,
+        cppcoreguidelines-*,
+        cert-*,
+        readability-*,
+        bugprone-*,
+        misc-*,
+        clang-*,
+        clang-diagnostic-unused-parameter,
+        boost-use-to-string,
+        concurrency-thread-canceltype-asynchronous ,
+        google-build-explicit-make-pair,
+        google-build-namespaces,
+        google-build-using-namespace,
+        google-explicit-constructor,
+        google-global-names-in-headers,
+        google-runtime-int,
+        google-runtime-operator,
+        mpi-buffer-deref,
+        mpi-type-mismatch,
+ 
+      ]
+      Remove: [
+        modernize-use-trailing-return-type,
+        readability-identifier-length,
+        readability-math-missing-parentheses,
+        bugprone-easily-swappable-parameters,
+        cppcoreguidelines-pro-type-vararg,
+        cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+        cppcoreguidelines-special-member-functions,
+        readability-uppercase-literal-suffix,
+      ]
