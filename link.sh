@@ -14,4 +14,5 @@ ln -sf $ROOT/clangd $HOME/.config/clangd
 ln -sf $ROOT/hypr $HOME/.config/hypr
 ln -sf $ROOT/waybar $HOME/.config/waybar
 ln -sf $ROOT/.vimrc $HOME/.vimrc
+ln -sf $ROOT/.vim $HOME/.vim
 
