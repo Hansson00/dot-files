@@ -18,6 +18,9 @@ set hlsearch
 set incsearch
 set autoindent smartindent
 
+let &t_SI = "\e[6 q"   " Insert mode: bar cursor
+let &t_EI = "\e[2 q"   " Normal mode: block cursor
+
 "###########################################
 " Enable persistent undo
 "###########################################

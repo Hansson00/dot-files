@@ -1,6 +1,6 @@
-" let mapleader = " "
-" nnoremap <Space> <Nop>
-" set timeoutlen=500
+let mapleader = " "
+nnoremap <Space> <Nop>
+set timeoutlen=500
 "
 " set relativenumber
 " set number
@@ -134,3 +134,4 @@ source ~/.vim/config/commands.vim
 source ~/.vim/config/grep_fd.vim
 source ~/.vim/config/harpoon.vim
 source ~/.vim/config/buffer.vim
+source ~/.vim/config/format.vim

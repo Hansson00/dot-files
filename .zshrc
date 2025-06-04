@@ -19,7 +19,7 @@ source $ZSH/oh-my-zsh.sh
 # FZF Config
 ####################
 source <(fzf --zsh)
-alias fd='fdfind'
+# alias fd='fdfind'
 
 # Options to fzf command
 export FZF_COMPLETION_OPTS='--border --info=inline'
